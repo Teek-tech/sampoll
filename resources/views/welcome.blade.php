@@ -72,60 +72,7 @@
             </div><!-- end container-fluid -->
         </header><!-- end market-header -->
 
-        <section class="section first-section">
-            <div class="container-fluid">
-                <div class="masonry-blog clearfix">
-                    <div class="first-slot">
-                        <div class="masonry-box post-media">
-                             <img src="{{asset('sampoll/upload/tech_01.jpg')}}" alt="" class="img-fluid">
-                             <div class="shadoweffect">
-                                <div class="shadow-desc">
-                                    <div class="blog-meta">
-                                        <span class="bg-orange"><a href="tech-category-01.html" title="">Technology</a></span>
-                                        <h4><a href="tech-single.html" title="">Say hello to real handmade office furniture! Clean & beautiful design</a></h4>
-                                        <small><a href="tech-single.html" title="">24 July, 2017</a></small>
-                                        <small><a href="tech-author.html" title="">by Amanda</a></small>
-                                    </div><!-- end meta -->
-                                </div><!-- end shadow-desc -->
-                            </div><!-- end shadow -->
-                        </div><!-- end post-media -->
-                    </div><!-- end first-side -->
-
-                    <div class="second-slot">
-                        <div class="masonry-box post-media">
-                             <img src="{{asset('sampoll/upload/tech_02.jpg')}}" alt="" class="img-fluid">
-                             <div class="shadoweffect">
-                                <div class="shadow-desc">
-                                    <div class="blog-meta">
-                                        <span class="bg-orange"><a href="tech-category-01.html" title="">Gadgets</a></span>
-                                        <h4><a href="tech-single.html" title="">Do not make mistakes when choosing web hosting</a></h4>
-                                        <small><a href="tech-single.html" title="">03 July, 2017</a></small>
-                                        <small><a href="tech-author.html" title="">by Jessica</a></small>
-                                    </div><!-- end meta -->
-                                </div><!-- end shadow-desc -->
-                             </div><!-- end shadow -->
-                        </div><!-- end post-media -->
-                    </div><!-- end second-side -->
-
-                    <div class="last-slot">
-                        <div class="masonry-box post-media">
-                             <img src="sampoll/upload/tech_03.jpg" alt="" class="img-fluid">
-                             <div class="shadoweffect">
-                                <div class="shadow-desc">
-                                    <div class="blog-meta">
-                                        <span class="bg-orange"><a href="tech-category-01.html" title="">Technology</a></span>
-                                        <h4><a href="tech-single.html" title="">The most reliable Galaxy Note 8 images leaked</a></h4>
-                                        <small><a href="tech-single.html" title="">01 July, 2017</a></small>
-                                        <small><a href="tech-author.html" title="">by Jessica</a></small>
-                                    </div><!-- end meta -->
-                                </div><!-- end shadow-desc -->
-                             </div><!-- end shadow -->
-                        </div><!-- end post-media -->
-                    </div><!-- end second-side -->
-                </div><!-- end masonry -->
-            </div>
-        </section>
-
+ 
         <section class="section">
             <div class="container">
                 <div class="row">
@@ -134,31 +81,35 @@
                             <div class="blog-top clearfix">
                                 <h4 class="pull-left">Recent News <a href="#"><i class="fa fa-rss"></i></a></h4>
                             </div><!-- end blog-top -->
-
+                           
                             <div class="blog-list clearfix">
-                                <div class="blog-box row">
-                                    <div class="col-md-4">
-                                        <div class="post-media">
-                                            <a href="tech-single.html" title="">
-                                                <img src="sampoll/upload/tech_blog_01.jpg" alt="" class="img-fluid">
-                                                <div class="hovereffect"></div>
-                                            </a>
-                                        </div><!-- end media -->
-                                    </div><!-- end col -->
-
-                                    <div class="blog-meta big-meta col-md-8">
-                                        <h4><a href="tech-single.html" title="">Top 10 phone applications and 2017 mobile design awards</a></h4>
-                                        <p>Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. In at augue elit. Vivamus enim nibh, maximus ac felis nec, maximus tempor odio.</p>
-                                        <small class="firstsmall"><a class="bg-orange" href="tech-category-01.html" title="">Gadgets</a></small>
-                                        <small><a href="tech-single.html" title="">21 July, 2017</a></small>
-                                        <small><a href="tech-author.html" title="">by Matilda</a></small>
-                                        <small><a href="tech-single.html" title=""><i class="fa fa-eye"></i> 1114</a></small>
-                                    </div><!-- end meta -->
-                                </div><!-- end blog-box -->
-
+                            @foreach($post as $posts)
+                    <div class="blog-box row">
+                        <div class="col-md-4">
+                            <div class="post-media">
+                                <a href="{{route('article', $posts->id)}}">
+                                    <img src="{{asset((isset($posts) && $posts->image!='')?'resource_img/'.$posts->image:'resource_img/noimage.jpg')}}" alt="" class="img-fluid">
+                                    <div class="hovereffect"></div>
+                                </a>
+                            </div><!-- end media -->
+                        </div><!-- end col -->
+        
+            <div class="blog-meta big-meta col-md-8">
+           
+                <h4><a href="{{route('article', $posts->id)}}">{{ucfirst($posts->title)}}</a></h4>
+                <p>{{ucfirst(str_limit($posts->body, 150, '...'))}}.</p>
+                <small class="firstsmall"><a class="bg-orange" href="#">{{ucfirst($posts->category)}}</a></small>
+                <small> {{date('d', strtotime($posts->created_at))}} {{date('M', strtotime($posts->created_at))}}, {{date('Y', strtotime($posts->created_at))}}</a></small>
+                <small>{{$posts->user->name}}</small>
+                <small><i class="fa fa-eye"></i> {{$posts->seen_by}}</small>
+               
+            </div><!-- end meta -->
+           
+        </div><!-- end blog-box -->
+       
                                 <hr class="invis">
 
-                               
+                                @endforeach
                         <hr class="invis">
 
                         <div class="row">
